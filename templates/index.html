@@ -23,65 +23,28 @@
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 
         <script type="text/javascript">
-            function isCellPhone(p) {
-                let regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-][0-9]{3,4}[-][0-9]{4}$/;
-                return regExp.test(p);
-            }
 
-            function order() {
-                let name = $("#order-name").val();
-                let count = $("#order-count").val();
-                let address = $("#order-address").val();
-                let phone = $("#order-phone").val();
-
-                if (name == "") {
-                    alert("이름을 입력해주세요")
-                    $("#order-name").focus()
-                    return
-                } else if (count == "") {
-                    alert("수량을 입력해주세요")
-                    $("#order-count").focus()
-                    return
-                } else if (address == "") {
-                    alert("주소를 입력해주세요")
-                    $("#order-address").focus()
-                    return
-                } else if (phone == "") {
-                    alert("휴대폰번호를 입력해주세요")
-                    $("#order-phone").focus()
-                    return
-                } else if (!isCellPhone(phone)) {
-                    alert("휴대폰번호 입력 형식이 틀립니다. \n 010-0000-0000으로 입력해주세요")
-                    return
+            function register() {
+                let phone = $("#register-phone").val();
+                if (phone == "") {
+                    alert("전화번호 끝 4자리를 입력해주세요")
                 }
-
-                // 주문하기 API를 사용해 여기를 채워주세요
+                else {alert ("전화번호 끝 4자리가 " + phone + " 로 입력되었습니다.")}
             }
 
-            $(document).ready(function () {
-                $("#orders-box").html("");
-                showOrders();
-            });
 
-            function showOrders() {
-                // 주문 목록보기 API 를 사용해 여기를 채워주세요
-            }
+            //function phqAns(){var ans }아오씨 모르겠다
 
-            function makeOrderRow(name, count, address, phone) {
-                let tempHtml = `<tr>\
-                                <td>${name}</td>
-                                <td>${count}</td>
-                                <td>${address}</td>
-                                <td>${phone}</td>
-                              </tr>`;
 
-                $("#orders-box").append(tempHtml);
-            }
         </script>
 
         <style type="text/css">
             * {
                 font-family: "Stylish", sans-serif;
+            }
+
+            html {
+                overflow-y: scroll;
             }
 
             h1, h5 {
@@ -93,12 +56,12 @@
                 margin: auto;
             }
 
-            .img {
-                background-image: url("https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg");
+            .img_a {
+                background-image: url("https://postfiles.pstatic.net/MjAyMDA4MTVfNSAg/MDAxNTk3NDQ3NjY1NDcy.9gaP4mitMTy_O9MbNVKpKfpqJ3MGn2LWXXpTAee3mmUg.DJ6xUg0jPagbr8q-fECvqkfUYKEMcWlWKhFLD578c0Ig.JPEG.bechungan/center_logo.JPG?type=w773");
                 background-size: cover;
                 background-position: center;
                 width: 500px;
-                height: 300px;
+                height: 200px;
             }
 
             .info {
@@ -106,55 +69,216 @@
                 margin-bottom: 20px;
             }
 
-            .order {
-                text-align: center;
+            .survey-box {
+                width: 500px;
+                border-style: solid;
+                border-width: thin;
+                border-color: lightgray;
+                border-radius: 5px;
+                padding: 6px 12px;
+
             }
 
-            .orders {
-                margin-top: 100px;
+            .question-box {
+                width: 490px
             }
+
+
         </style>
+
     </head>
     <body>
         <div class="wrap">
-            <div class="img"></div>
+            <div class="img_a"></div>
             <div class="info">
-                <h1>당신이 얼마나 우울한지 알아봅시다. </h1>
-                <h5>당신이 얼마나 우울한지 궁금한가요? 그럼 알아봅시다. </h5>
-                <p>아래에 전화번호 끝자리 4자리를 입력해주세요. </p>
+                <h1>당신의 우울을 알아봅시다.</h1><br><br>
+                <h5>우울은 당신의 삶을 힘들게 만들어요. 제 삶도 힘들게 만들죠. 저는 당신이 건강해져서 제 외래와 응급실에 오지 않아도 되기를 간절히 바랍니다. <br> 만약 급한일로 응급실에 오게
+                    된다면 부디 주간에 와주시길. 늘 건강하고, 행복하세요. 진심입니다. </h5><br><br>
 
+                <h5>
+                    <li>먼저, 아래에 전화번호 끝자리 4자리를 입력해주세요.</li>
+                </h5>
 
                 <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">전화번호</span>
+                    <input type="text" class="form-control" placeholder="0000"
+                           aria-label="four-digit-number" aria-describedby="button-addon2" id="register-phone" maxlength="4">
+                    <div class="input-group-append">
+                        <button onclick="register()" class="btn btn-outline-secondary" type="button" id="button-addon2">
+                            전화번호 입력
+                        </button>
                     </div>
-                    <input type="text" class="form-control" id="order-phone">
                 </div>
-                <div class="order">
-                    <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
-                </div>
+                <br>
+                <h5>
+                    <li>지난 2주 동안 다음과 같은 문제를 얼마나 자주 겪었는지 해당되는 란에 체크해 주세요.</li>
+                </h5>
             </div>
-            <div class="orders">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">이름</th>
-                        <th scope="col">수량</th>
-                        <th scope="col">주소</th>
-                        <th scope="col">전화번호</th>
-                    </tr>
-                    </thead>
-                    <tbody id="orders-box">
-                    <tr>
-                        <td>박르탄</td>
-                        <td>3</td>
-                        <td>스파르타국 코딩시 프론트구</td>
-                        <td>010-1234-5678</td>
-                    </tr>
 
-                    </tbody>
-                </table>
+            <div class="survey-box">
+                <div class="question-box" id="phq1">
+                    <h5>1. 매사에 흥미나 즐거움이 거의 없다. </h5><br>
+                    <input type="radio" name="phq1" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq1" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq1" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq1" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq2">
+                    <h5>2. 기분이 가라앉거나, 우울하거나, 희망이 없다고 느낀다. </h5><br>
+                    <input type="radio" name="phq2" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq2" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq2" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq2" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq3">
+                    <h5>3. 잠들기 어렵거나 자주 깬다/혹은 잠을 너무 많이 잔다. </h5><br>
+                    <input type="radio" name="phq3" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq3" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq3" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq3" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq4">
+                    <h5>4. 피곤하다고 느끼거나 기운이 거의 없다. </h5><br>
+                    <input type="radio" name="phq4" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq4" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq4" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq4" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq5">
+                    <h5>5. 식욕이 줄었다/혹은 너무 많이 먹었다. </h5><br>
+                    <input type="radio" name="phq5" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq5" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq5" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq5" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq6">
+                    <h5>6. 내 자신이 실패자로 여겨지거나 자신과 가족을 실망시켰다고 느낀다. </h5><br>
+                    <input type="radio" name="phq6" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq6" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq6" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq6" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq7">
+                    <h5>7. 신문을 읽거나 TV 를 보는 것과 같은 일상적인 일에 집중하기 어렵다. </h5><br>
+                    <input type="radio" name="phq7" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq7" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq7" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq7" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq8">
+                    <h5>8. 다른 사람들이 눈치 챌 정도로 평소보다 말과 행동이 느리다/혹은 너무 안절부절 못해서 가만히 앉아 있을 수 없다. </h5><br>
+                    <input type="radio" name="phq8" value="0">전혀 없음 &nbsp;
+                    <input type="radio" name="phq8" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq8" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq8" value="3">거의 매일 &nbsp;
+                </div>
+                <br><br>
+                <div class="question-box" id="phq9">
+                    <h5>9. 차라리 죽는 것이 낫겠다고 생각하거나, 어떻게든 자해를 하려고 생각한다. </h5><br>
+                    <input type="radio" name="phq9" value="0">전혀 없음&nbsp;
+                    <input type="radio" name="phq9" value="1">며칠 동안 &nbsp;
+                    <input type="radio" name="phq9" value="2">1주일 이상 &nbsp;
+                    <input type="radio" name="phq9" value="3">거의 매일 &nbsp;
+                </div>
+
+                <br><br>
+                <div class="question-box" id="phq10">
+                    <h5>*. 만약 위의 문제 중 하나라도 해당되는 사항이 있으면 그것으로 인하여 일상생활(직장, 일, 집안 일, 대인관계)에 어느 정도 어려움을 느끼십니까? </h5><br>
+                    <input type="radio" name="phq10" value="0">전혀 어렵지 않다&nbsp;
+                    <input type="radio" name="phq10" value="1">조금 어렵다 &nbsp;
+                    <input type="radio" name="phq10" value="2">많이 어렵다 &nbsp;
+                    <input type="radio" name="phq10" value="3">매우 많이 어렵다 &nbsp;
+                </div>
+
+
+                <br><br>
+
+                <div align="center">
+                    <button onclick="phqAns()" type="button" name="confirm" id="radioButton"
+                            style="padding:10px 25px; color:white; background-color:skyblue; border:0;  border-radius:5px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)">
+                        결과 확인!
+                    </button>
+                </div>
+                <br>
             </div>
+
+            <br><br>
+
+            <h5>
+                <li>아래에서 당신의 결과를 확인해 주세요.</li>
+            </h5>
+
+            <br>
+
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMjU2/MDAxNTk3NDk5MTA0NDYy.A93HdCl_Et73AqMPRoXbYSLfhTXysG6H6GUXVIm3NBEg.HQ_YLQKnX2VfI3840r_SP3XBVWDShVafidLY9ljeKRgg.JPEG.bechungan/%EC%A0%95%EC%83%81.JPG?type=w773"
+                             class="card-img" alt="card img left">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">당신은 우울증이 아닙니다.</h5>
+                            <p class="card-text">축하합니다. 우리 야옹이 사진이나 보고 가시죠. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfOTUg/MDAxNTk3NDk5MTA0NDQ2.kGhozo8WnmUdrtgaocK7yMKN1ErFJ45egcMlfTNko9Ag.ZP-5ykOY8gHozdNMxuIbhYx0FI-rtyJDj0DUgNwCZIYg.JPEG.bechungan/%EA%B2%BD%EB%8F%84%EC%9A%B0%EC%9A%B8.JPG?type=w773"
+                             class="card-img" alt="card img left">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">당신은 경도 우울증입니다.</h5>
+                            <p class="card-text">당신은 쪼끔 우울해요. 우리 야옹이 사진을 보면서 기분을 전환해 봅시다. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMjQg/MDAxNTk3NDk5MTA0NDY4.JzEkJcaQdFq8re0fBdDo5sSxajxw6YwYs0_cxZeUfH8g.PuLQoW74tfqUusDbKH19uV2LhzqOttuG8zdJFl7JsWIg.JPEG.bechungan/%EC%A4%91%EA%B0%84%EC%9A%B0%EC%9A%B8.JPG?type=w773"
+                             class="card-img" alt="card img left">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">당신은 중등도 우울증입니다.</h5>
+                            <p class="card-text">어느정도 우울하다 이렇게 볼수가 있습니다. 우리 야옹이 귀엽죠? 우울증 치료에는 고양이 사진이 도움이 됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMTE1/MDAxNTk3NDk5MTA0NDY2.BJe3N03BbivmPYGo_OsOKL-_2zcNHQHpWafFLQiPYhQg.ZpY3CdnAM1HctlDu7LRDA47ZWyeczeGnftX3MO7kJ7og.JPEG.bechungan/%EC%A4%91%EC%A6%9D%EC%9A%B0%EC%9A%B8.JPG?type=w773"
+                             class="card-img" alt="card img left">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">당신은 중증 우울증입니다.</h5>
+                            <p class="card-text">우리 야옹이 사진은 우울증에 큰 효과가 있지만, 우선 당신에게는 약이 필요해 보이네요. 우선 렉사프로, 아빌리파이, 자낙스로
+                                가볍게 시작해봅시다. 약 만세!!!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
     </body>
 </html>
