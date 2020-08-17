@@ -28,12 +28,108 @@
                 let phone = $("#register-phone").val();
                 if (phone == "") {
                     alert("전화번호 끝 4자리를 입력해주세요")
+                } else {
+                    alert("전화번호 끝 4자리가 " + phone + " 로 입력되었습니다.")
                 }
-                else {alert ("전화번호 끝 4자리가 " + phone + " 로 입력되었습니다.")}
             }
 
+            function ansGet() {
+                let phone = $("#register-phone").val();
+                let phqAns1 = parseInt($('input:radio[name="phq1"]:checked').val(), 10);
+                let phqAns2 = parseInt($('input:radio[name="phq2"]:checked').val(), 10);
+                let phqAns3 = parseInt($('input:radio[name="phq3"]:checked').val(), 10);
+                let phqAns4 = parseInt($('input:radio[name="phq4"]:checked').val(), 10);
+                let phqAns5 = parseInt($('input:radio[name="phq5"]:checked').val(), 10);
+                let phqAns6 = parseInt($('input:radio[name="phq6"]:checked').val(), 10);
+                let phqAns7 = parseInt($('input:radio[name="phq7"]:checked').val(), 10);
+                let phqAns8 = parseInt($('input:radio[name="phq8"]:checked').val(), 10);
+                let phqAns9 = parseInt($('input:radio[name="phq9"]:checked').val(), 10);
+                let phqAns10 = parseInt($('input:radio[name="phq10"]:checked').val(), 10);
+                if (phone=="") {
+                    alert("번화번호를 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns1)) {
+                    alert("1번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns2)) {
+                    alert("2번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns3)) {
+                    alert("3번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns4)) {
+                    alert("4번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns5)) {
+                    alert("5번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns6)) {
+                    alert("6번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns7)) {
+                    alert("7번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns8)) {
+                    alert("8번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns9)) {
+                    alert("9번 문항을 입력해주세요.")
+                    return;
+                } else if (isNaN(phqAns10)) {
+                    alert("맨 마지막 문항을 입력해주세요.")
+                    return;
+                }
+                // 요기에 파일 보내는 함수 적기!!!
+                $.ajax({
+                    type: "POST",
+                    url: "/surveyresult",
+                    data: {
+                        phone_give: phone,
+                        phq1_give: phqAns1,
+                        phq2_give: phqAns2,
+                        phq3_give: phqAns3,
+                        phq4_give: phqAns4,
+                        phq5_give: phqAns5,
+                        phq6_give: phqAns6,
+                        phq7_give: phqAns7,
+                        phq8_give: phqAns8,
+                        phq9_give: phqAns9,
+                        phq10_give: phqAns10
+                    }
 
-            //function phqAns(){var ans }아오씨 모르겠다
+                })
+
+
+                // if ($('#result1').css('display') == 'block') {
+                //     $('#result1').hide()
+                // }
+
+                let result = phqAns1 + phqAns2 + phqAns3 + phqAns4 + phqAns5 + phqAns6 + phqAns7 + phqAns8 + phqAns9;
+
+                // if (result > 3) {
+                //     $('#result1').show()
+                // }
+
+                if (result > 19) {
+                    //alert("우울")
+                    $('#result4').show();
+                    $('#result4').focus();
+                } else if (result > 9) {
+                    // alert("중간우울");
+                    $('#result3').show()
+                    $('#result3').focus();
+                } else if (result > 4) {
+                    // alert("경도우울");
+
+                    $('#result2').show()
+                    $('#result2').focus();
+                } else {
+                    // alert("정상");}
+                    $('#result1').show()
+                    $('#result1').focus();
+                }
+
+            }
 
 
         </script>
@@ -101,10 +197,12 @@
 
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="0000"
-                           aria-label="four-digit-number" aria-describedby="button-addon2" id="register-phone" maxlength="4">
+                           aria-label="four-digit-number" aria-describedby="button-addon2" id="register-phone"
+                           maxlength="4">
                     <div class="input-group-append">
                         <button onclick="register()" class="btn btn-outline-secondary" type="button" id="button-addon2">
                             전화번호 입력
+
                         </button>
                     </div>
                 </div>
@@ -117,90 +215,90 @@
             <div class="survey-box">
                 <div class="question-box" id="phq1">
                     <h5>1. 매사에 흥미나 즐거움이 거의 없다. </h5><br>
-                    <input type="radio" name="phq1" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq1" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq1" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq1" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq1" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq1" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq1" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq1" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq2">
                     <h5>2. 기분이 가라앉거나, 우울하거나, 희망이 없다고 느낀다. </h5><br>
-                    <input type="radio" name="phq2" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq2" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq2" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq2" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq2" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq2" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq2" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq2" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq3">
                     <h5>3. 잠들기 어렵거나 자주 깬다/혹은 잠을 너무 많이 잔다. </h5><br>
-                    <input type="radio" name="phq3" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq3" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq3" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq3" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq3" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq3" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq3" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq3" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq4">
                     <h5>4. 피곤하다고 느끼거나 기운이 거의 없다. </h5><br>
-                    <input type="radio" name="phq4" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq4" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq4" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq4" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq4" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq4" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq4" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq4" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq5">
                     <h5>5. 식욕이 줄었다/혹은 너무 많이 먹었다. </h5><br>
-                    <input type="radio" name="phq5" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq5" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq5" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq5" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq5" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq5" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq5" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq5" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq6">
                     <h5>6. 내 자신이 실패자로 여겨지거나 자신과 가족을 실망시켰다고 느낀다. </h5><br>
-                    <input type="radio" name="phq6" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq6" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq6" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq6" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq6" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq6" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq6" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq6" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq7">
                     <h5>7. 신문을 읽거나 TV 를 보는 것과 같은 일상적인 일에 집중하기 어렵다. </h5><br>
-                    <input type="radio" name="phq7" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq7" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq7" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq7" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq7" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq7" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq7" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq7" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq8">
                     <h5>8. 다른 사람들이 눈치 챌 정도로 평소보다 말과 행동이 느리다/혹은 너무 안절부절 못해서 가만히 앉아 있을 수 없다. </h5><br>
-                    <input type="radio" name="phq8" value="0">전혀 없음 &nbsp;
-                    <input type="radio" name="phq8" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq8" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq8" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq8" value=0>전혀 없음 &nbsp;
+                    <input type="radio" name="phq8" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq8" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq8" value=3>거의 매일 &nbsp;
                 </div>
                 <br><br>
                 <div class="question-box" id="phq9">
                     <h5>9. 차라리 죽는 것이 낫겠다고 생각하거나, 어떻게든 자해를 하려고 생각한다. </h5><br>
-                    <input type="radio" name="phq9" value="0">전혀 없음&nbsp;
-                    <input type="radio" name="phq9" value="1">며칠 동안 &nbsp;
-                    <input type="radio" name="phq9" value="2">1주일 이상 &nbsp;
-                    <input type="radio" name="phq9" value="3">거의 매일 &nbsp;
+                    <input type="radio" name="phq9" value=0>전혀 없음&nbsp;
+                    <input type="radio" name="phq9" value=1>며칠 동안 &nbsp;
+                    <input type="radio" name="phq9" value=2>1주일 이상 &nbsp;
+                    <input type="radio" name="phq9" value=3>거의 매일 &nbsp;
                 </div>
 
                 <br><br>
                 <div class="question-box" id="phq10">
                     <h5>*. 만약 위의 문제 중 하나라도 해당되는 사항이 있으면 그것으로 인하여 일상생활(직장, 일, 집안 일, 대인관계)에 어느 정도 어려움을 느끼십니까? </h5><br>
-                    <input type="radio" name="phq10" value="0">전혀 어렵지 않다&nbsp;
-                    <input type="radio" name="phq10" value="1">조금 어렵다 &nbsp;
-                    <input type="radio" name="phq10" value="2">많이 어렵다 &nbsp;
-                    <input type="radio" name="phq10" value="3">매우 많이 어렵다 &nbsp;
+                    <input type="radio" name="phq10" value=0>전혀 어렵지 않다&nbsp;
+                    <input type="radio" name="phq10" value=1>조금 어렵다 &nbsp;
+                    <input type="radio" name="phq10" value=2>많이 어렵다 &nbsp;
+                    <input type="radio" name="phq10" value=3>매우 많이 어렵다 &nbsp;
                 </div>
 
 
                 <br><br>
 
                 <div align="center">
-                    <button onclick="phqAns()" type="button" name="confirm" id="radioButton"
+                    <button onclick="ansGet();" type="button" name="confirm" id="radioButton"
                             style="padding:10px 25px; color:white; background-color:skyblue; border:0;  border-radius:5px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)">
                         결과 확인!
                     </button>
@@ -211,12 +309,12 @@
             <br><br>
 
             <h5>
-                <li>아래에서 당신의 결과를 확인해 주세요.</li>
+                <li>아래 창에서 당신의 결과를 확인해 주세요.</li>
             </h5>
 
             <br>
 
-            <div class="card mb-3" style="max-width: 540px;">
+            <div id="result1" class="card mb-3" style="max-width: 540px; display:none">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMjU2/MDAxNTk3NDk5MTA0NDYy.A93HdCl_Et73AqMPRoXbYSLfhTXysG6H6GUXVIm3NBEg.HQ_YLQKnX2VfI3840r_SP3XBVWDShVafidLY9ljeKRgg.JPEG.bechungan/%EC%A0%95%EC%83%81.JPG?type=w773"
@@ -231,7 +329,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3" style="max-width: 540px;">
+            <div id="result2" class="card mb-3" style="max-width: 540px; display:none">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfOTUg/MDAxNTk3NDk5MTA0NDQ2.kGhozo8WnmUdrtgaocK7yMKN1ErFJ45egcMlfTNko9Ag.ZP-5ykOY8gHozdNMxuIbhYx0FI-rtyJDj0DUgNwCZIYg.JPEG.bechungan/%EA%B2%BD%EB%8F%84%EC%9A%B0%EC%9A%B8.JPG?type=w773"
@@ -246,7 +344,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3" style="max-width: 540px;">
+            <div id="result3" class="card mb-3" style="max-width: 540px; display:none">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMjQg/MDAxNTk3NDk5MTA0NDY4.JzEkJcaQdFq8re0fBdDo5sSxajxw6YwYs0_cxZeUfH8g.PuLQoW74tfqUusDbKH19uV2LhzqOttuG8zdJFl7JsWIg.JPEG.bechungan/%EC%A4%91%EA%B0%84%EC%9A%B0%EC%9A%B8.JPG?type=w773"
@@ -261,7 +359,7 @@
                 </div>
             </div>
 
-            <div class="card mb-3" style="max-width: 540px;">
+            <div id="result4" class="card mb-3" style="max-width: 540px; display:none">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMTE1/MDAxNTk3NDk5MTA0NDY2.BJe3N03BbivmPYGo_OsOKL-_2zcNHQHpWafFLQiPYhQg.ZpY3CdnAM1HctlDu7LRDA47ZWyeczeGnftX3MO7kJ7og.JPEG.bechungan/%EC%A4%91%EC%A6%9D%EC%9A%B0%EC%9A%B8.JPG?type=w773"
