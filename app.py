@@ -13,6 +13,26 @@ def home():
     return render_template('index.html')
 
 
+@app.route('/normal')
+def result_ISTG():
+    return render_template('normal.html')
+
+
+@app.route('/mild')
+def result_ISFJ():
+    return render_template('mild.html')
+
+
+@app.route('/moderate')
+def result_INTJ():
+    return render_template('moderate.html')
+
+
+@app.route('/severe')
+def result_INFJ():
+    return render_template('severe.html')
+
+
 ## API 역할을 하는 부분
 @app.route('/surveyresult', methods=['POST'])
 def write_survey_result():
@@ -47,6 +67,7 @@ def write_survey_result():
     db.phq.insert_one(phq_survey)
     # 3. 성공 여부 & 성공 메시지 반환하기
     return jsonify({'result': 'success', 'msg': '잘 등록되었습니다!'})
+
 
 if __name__ == '__main__':
     app.run('127.0.0.1', port=5000, debug=True)

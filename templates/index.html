@@ -45,7 +45,7 @@
                 let phqAns8 = parseInt($('input:radio[name="phq8"]:checked').val(), 10);
                 let phqAns9 = parseInt($('input:radio[name="phq9"]:checked').val(), 10);
                 let phqAns10 = parseInt($('input:radio[name="phq10"]:checked').val(), 10);
-                if (phone=="") {
+                if (phone == "") {
                     alert("번화번호를 입력해주세요.")
                     return;
                 } else if (isNaN(phqAns1)) {
@@ -100,33 +100,40 @@
                 })
 
 
-                // if ($('#result1').css('display') == 'block') {
-                //     $('#result1').hide()
-                // }
-
                 let result = phqAns1 + phqAns2 + phqAns3 + phqAns4 + phqAns5 + phqAns6 + phqAns7 + phqAns8 + phqAns9;
 
-                // if (result > 3) {
+
+                // if (result > 19) {
+                //     //alert("우울")
+                //     $('#result4').show();
+                //     $('#result4').focus();
+                // } else if (result > 9) {
+                //     // alert("중간우울");
+                //     $('#result3').show()
+                //     $('#result3').focus();
+                // } else if (result > 4) {
+                //     // alert("경도우울");
+                //
+                //     $('#result2').show()
+                //     $('#result2').focus();
+                // } else {
+                //     // alert("정상");}
                 //     $('#result1').show()
+                //     $('#result1').focus();
                 // }
 
                 if (result > 19) {
                     //alert("우울")
-                    $('#result4').show();
-                    $('#result4').focus();
+                    location.href = '/severe'
                 } else if (result > 9) {
                     // alert("중간우울");
-                    $('#result3').show()
-                    $('#result3').focus();
+                    location.href = '/moderate'
                 } else if (result > 4) {
                     // alert("경도우울");
-
-                    $('#result2').show()
-                    $('#result2').focus();
+                    location.href = '/mild'
                 } else {
                     // alert("정상");}
-                    $('#result1').show()
-                    $('#result1').focus();
+                    location.href = '/normal'
                 }
 
             }
