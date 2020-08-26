@@ -23,7 +23,22 @@
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 
         <script type="text/javascript">
-
+            $(document).ready(function () {
+                $('#target').click(function () {
+                    $.getJSON('psyhospital.json', function (data) {
+                        var html = '';
+                        $.each(data, function (entryIndex, entry) {
+                            html += '<div class="entry">';
+                            html += '<h3 class ="INST_NM">' + entry.INST_NM + '</h3>';
+                            html += '<div class="REFINE_ROADNM_ADDR">' + entry.REFINE_ROADNM_ADDR + '</div>'
+                            html += '</div>'
+                        });
+                        console.log(html);
+                        $('#dictionary').html(html);
+                    });
+                    return false;
+                });
+            });
 
         </script>
 
@@ -92,5 +107,19 @@
                 </div>
             </div>
         </div>
+
+        <div id="container">
+            <div class="letters">
+                <div class="letter" id="target">
+                    <h3><a href="#">근처 병의원 보기 클릭</a></h3>
+                </div>
+            </div>
+
+            <div id="dictionary">
+            </div>
+
+        </div>
+
+
     </body>
 </html>

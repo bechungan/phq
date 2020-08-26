@@ -14,22 +14,22 @@ def home():
 
 
 @app.route('/normal')
-def result_ISTG():
+def result_normal():
     return render_template('normal.html')
 
 
 @app.route('/mild')
-def result_ISFJ():
+def result_mild():
     return render_template('mild.html')
 
 
 @app.route('/moderate')
-def result_INTJ():
+def result_moderate():
     return render_template('moderate.html')
 
 
 @app.route('/severe')
-def result_INFJ():
+def result_severe():
     return render_template('severe.html')
 
 
