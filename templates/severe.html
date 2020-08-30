@@ -19,26 +19,40 @@
                 integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
                 crossorigin="anonymous"></script>
 
+
         <!-- 구글폰트 -->
         <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
-
+        {{ JSGlue.include() }}
         <script type="text/javascript">
+
+
             $(document).ready(function () {
-                $('#target').click(function () {
-                    $.getJSON('psyhospital.json', function (data) {
-                        var html = '';
-                        $.each(data, function (entryIndex, entry) {
-                            html += '<div class="entry">';
-                            html += '<h3 class ="INST_NM">' + entry.INST_NM + '</h3>';
-                            html += '<div class="REFINE_ROADNM_ADDR">' + entry.REFINE_ROADNM_ADDR + '</div>'
-                            html += '</div>'
-                        });
-                        console.log(html);
-                        $('#dictionary').html(html);
+                $('#guSelect').change(function () {
+                    $('#hos-info').empty()
+                    let guSelected = $("#guSelect option:selected").val();
+                    // alert(guSelected);
+                    $.getJSON(Flask.url_for("static", {"filename": "psyhospital.json"}), function (psylist) {
+                        for (let i = 0; i < psylist.length; i++) {
+                            let list = psylist[i];
+                            let name = list["INST_NM"];
+                            let tellNumb = list["TELNO_INFO"];
+                            let address = list["REFINE_ROADNM_ADDR"];
+                            let guSplit = address.split(' ');
+                            let gu = guSplit[2];
+                            let hospitalInfo = '';
+                            if (gu == guSelected) {
+                                hospitalInfo = `<tr> <td>${name}</td>
+<td>${address}</td><td>${tellNumb}</td>
+</tr>`
+                            }
+                            $('#hos-info').append(hospitalInfo)
+                        }
+
                     });
                     return false;
                 });
             });
+
 
         </script>
 
@@ -53,6 +67,17 @@
 
             h1, h5 {
                 display: inline;
+            }
+
+            table {
+                border: 1px solid;
+                width: 540px;
+            }
+
+            td,
+            th {
+                padding: 10px;
+                border: 1px solid;
             }
 
             .wrap {
@@ -92,34 +117,40 @@
 
     </head>
     <body>
-        <div id="result4" class="card mb-3" style="max-width: 540px;">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMTE1/MDAxNTk3NDk5MTA0NDY2.BJe3N03BbivmPYGo_OsOKL-_2zcNHQHpWafFLQiPYhQg.ZpY3CdnAM1HctlDu7LRDA47ZWyeczeGnftX3MO7kJ7og.JPEG.bechungan/%EC%A4%91%EC%A6%9D%EC%9A%B0%EC%9A%B8.JPG?type=w773"
-                         class="card-img" alt="card img left">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">당신은 중증 우울증입니다.</h5>
-                        <p class="card-text">우리 야옹이 사진은 우울증에 큰 효과가 있지만, 우선 당신에게는 약이 필요해 보이네요. 우선 렉사프로, 아빌리파이, 자낙스로
-                            가볍게 시작해봅시다. 약 만세!!!</p>
+        <br><br>
+        <div class="wrap">
+            <div id="result4" class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src="https://postfiles.pstatic.net/MjAyMDA4MTVfMTE1/MDAxNTk3NDk5MTA0NDY2.BJe3N03BbivmPYGo_OsOKL-_2zcNHQHpWafFLQiPYhQg.ZpY3CdnAM1HctlDu7LRDA47ZWyeczeGnftX3MO7kJ7og.JPEG.bechungan/%EC%A4%91%EC%A6%9D%EC%9A%B0%EC%9A%B8.JPG?type=w773"
+                             class="card-img" alt="card img left">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">당신은 중증 우울증입니다.</h5>
+                            <p class="card-text">우리 야옹이 사진은 우울증에 큰 효과가 있지만, 우선 당신에게는 약이 필요해 보이네요. 우선 렉사프로, 아빌리파이, 자낙스로
+                                가볍게 시작해봅시다. 약 만세!!!</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="container">
-            <div class="letters">
-                <div class="letter" id="target">
-                    <h3><a href="#">근처 병의원 보기 클릭</a></h3>
-                </div>
+            <div class="info" style="width:540px">
+
+                <h3>집 근처 병원을 알려드립니다. <br> 아래에서 당신이 살고 있는 지역을 선택해 주세요.</h3>
+
+                <select id="guSelect" class="info" name="guSelect" style="height:28px; font-size:25px">
+                    <option value="덕양구">덕양구</option>
+                    <option value="일산동구">일산동구</option>
+                    <option value="일산서구">일산서구</option>
+                </select>
             </div>
 
-            <div id="dictionary">
+            <div id="hos-info">
             </div>
-
         </div>
 
+        <br><br>
 
     </body>
 </html>
